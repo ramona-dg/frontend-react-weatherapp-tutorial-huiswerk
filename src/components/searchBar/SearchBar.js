@@ -2,13 +2,16 @@ import React from 'react';
 import {useState} from "react";
 import './SearchBar.css';
 
-function SearchBar() {
+
+function SearchBar({ setLocationHandler }) {
     //query (een zoekterm noemt men een search query in het Engels)
     const [query, setQuery] = useState('');
 
+    // Deze functie wordt aangeroepen als het formulier verzonden wordt en zorgt ervoor dat de pagina niet refresht wordt
     function onFormSubmit(e){
         e.preventDefault();
         console.log('submitted!');
+        setLocationHandler(query);
 
     }
 
