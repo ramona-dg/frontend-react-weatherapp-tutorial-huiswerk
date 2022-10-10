@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import { useState, useEffect  } from "react";
+import {useState, useEffect} from "react";
 import SearchBar from './components/searchBar/SearchBar';
 import TabBarMenu from './components/tabBarMenu/TabBarMenu';
 import MetricSlider from './components/metricSlider/MetricSlider';
+import ForecastTab from "./pages/forecastTab/ForecastTab";
 import './App.css';
 
 
@@ -36,17 +37,16 @@ function App() {
                 console.error(e);
             }
         }
-        fetchData();
 
+        if (location) {
+            fetchData();
+        }
     }, [location]);
 
 
     return (
         <>
-
-
             <div className="weather-container">
-
 
                 {/*HEADER -------------------- */}
                 <div className="weather-header">
@@ -65,7 +65,7 @@ function App() {
                             <>
                                 <h2>{weatherData.weather[0].description}</h2>
                                 <h3>  {weatherData.name}</h3>
-                                <h1>{weatherData.main.temp} &deg;</h1>
+                                <h1>{weatherData.main.temp}</h1>
                             </>
                         }
 
@@ -80,7 +80,7 @@ function App() {
                     <TabBarMenu/>
 
                     <div className="tab-wrapper">
-                        Alle inhoud van de tabbladen komt hier!
+                        <ForecastTab coordinates={weatherData.coord}/>
                     </div>
                 </div>
 
