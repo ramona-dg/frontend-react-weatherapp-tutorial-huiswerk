@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import SearchBar from './components/searchBar/SearchBar';
 import TabBarMenu from './components/tabBarMenu/TabBarMenu';
 import MetricSlider from './components/metricSlider/MetricSlider';
@@ -10,7 +10,7 @@ import './App.css';
 
 // API key in var declareren buiten functie om zo elders te gebruiken
 // let op met github, apiKey verbergen voor public
-const apiKey = '91a962004b3210f115f522d6321f19fc';
+const apiKey = 'd41c8f9a22da2df9e111d48dd05e8a7a';
 
 function App() {
     //state aanmaken om data in op te vangen en te gebruiken buiten scope(bereik, in dit geval buiten functie)
@@ -18,6 +18,7 @@ function App() {
     const [weatherData, setWeatherData] = useState({});
     //Callback props -> state aanmaken om beschikbaar te stellen aan child-component (SearchBar) zodat die data in de state kan zetten en weer terug geven aan parent-component (App).
     const [location, setLocation] = useState('');
+    // const [geoLocation, setGeoLocation] = useState(null);
 
     //voor de mounting fase
     useEffect(() => {
@@ -26,11 +27,12 @@ function App() {
         async function fetchData() {
             try {
                 // opgehaalde data in var result plaatsen
-                const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location},nl&appid=${apiKey}&lang=nl`);
+                const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}`);
                 // data van var result consollen
-                console.log(result.data);
+                // console.log(result.data);
                 // opgehaalde data in de state plaatsen om te kunnen gebruiken buiten de functie
                 setWeatherData(result.data);
+               // console.log(weatherData.coord);
 
             } catch (e) {
                 // error afvangen
@@ -80,7 +82,9 @@ function App() {
                     <TabBarMenu/>
 
                     <div className="tab-wrapper">
-                        <ForecastTab coordinates={weatherData.coord}/>
+                        <ForecastTab coordinates = { weatherData.coord }
+                        locationQuerty = { location }
+                        />
                     </div>
                 </div>
 
