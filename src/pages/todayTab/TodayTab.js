@@ -5,7 +5,6 @@ import WeatherDetail from '../../components/weatherDetail/WeatherDetail';
 import createTimeString from '../../helpers/createTimeString';
 
 
-const apiKey2 = 'd41c8f9a22da2df9e111d48dd05e8a7a';
 
 function TodayTab({coordinates}) {
     const [forecasts, setForecasts] = useState([]);
@@ -19,7 +18,7 @@ function TodayTab({coordinates}) {
 
 
                 try {
-                    const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&&appid=${apiKey2}&lang=nl`);
+                    const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&&appid=${process.env.REACT_APP_API_KEY}&lang=nl`);
                     console.log(result.data.list[10],
                         result.data.list[20],
                         result.data.list[30]);
@@ -48,9 +47,11 @@ function TodayTab({coordinates}) {
         <div className="tab-wrapper">
             <div className="chart">
                 {forecasts.map((forecast) => {
-                	return <WeatherDetail
+                    // doe hier iets mee dt_txt  if (.includes)
+                        return <WeatherDetail
                 		key={forecast.dt}
                 		temp={forecast.temp}
+                        type={forecast.weather[0].icon}
                 		description={forecast.weather[0].description}
                 	/>
                 })}

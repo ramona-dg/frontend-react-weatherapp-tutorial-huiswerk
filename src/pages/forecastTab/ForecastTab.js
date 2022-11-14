@@ -4,7 +4,7 @@ import './ForecastTab.css';
 import kelvinToCelsius from "../../helpers/kelvinToCelsius";
 import createDateString from "../../helpers/createDateString"
 
-const apiKey2 = 'd41c8f9a22da2df9e111d48dd05e8a7a';
+
 
 function ForecastTab({coordinates}) {
     const [forecasts, setForecasts] = useState([]);
@@ -24,7 +24,7 @@ function ForecastTab({coordinates}) {
             toggleLoading(true);
 
             try {
-                const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&&appid=${apiKey2}&lang=nl`);
+                const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.lat}&lon=${coordinates.lon}&&appid=${process.env.REACT_APP_API_KEY}&lang=nl`);
                 console.log(result.data);
                 setForecasts(result.data.list.slice(1, 6));
 

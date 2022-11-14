@@ -10,9 +10,7 @@ import TodayTab from "./pages/todayTab/TodayTab";
 import kelvinToCelsius from "./helpers/kelvinToCelsius";
 import './App.css';
 
-// API key in var declareren buiten functie om zo elders te gebruiken
-// let op met github, apiKey verbergen voor public
-const apiKey = 'd41c8f9a22da2df9e111d48dd05e8a7a';
+
 
 function App() {
     //state aanmaken om data in op te vangen en te gebruiken buiten scope(bereik, in dit geval buiten functie)
@@ -31,7 +29,7 @@ function App() {
         async function fetchData() {
             try {
                 // opgehaalde data in var result plaatsen
-                const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&lang=nl`);
+                const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${process.env.REACT_APP_API_KEY}&lang=nl`);
                 // data van var result consollen
                 // console.log(result.data);
                 // opgehaalde data in de state plaatsen om te kunnen gebruiken buiten de functie
