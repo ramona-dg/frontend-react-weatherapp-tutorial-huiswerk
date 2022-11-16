@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,9 +7,8 @@ import TabBarMenu from './components/tabBarMenu/TabBarMenu';
 import MetricSlider from './components/metricSlider/MetricSlider';
 import ForecastTab from "./pages/forecastTab/ForecastTab";
 import TodayTab from "./pages/todayTab/TodayTab";
-import kelvinToCelsius from "./helpers/kelvinToCelsius";
+import {TempContext} from "./context/TempContextProvider";
 import './App.css';
-
 
 
 function App() {
@@ -19,6 +18,8 @@ function App() {
     //Callback props -> state aanmaken om beschikbaar te stellen aan child-component (SearchBar) zodat die data in de state kan zetten en weer terug geven aan parent-component (App).
     const [location, setLocation] = useState('');
     const [error, toggleError] = useState(false);
+
+    const { kelvinToMetric } = useContext(TempContext);
 
     //voor de mounting fase
     useEffect(() => {
@@ -74,7 +75,7 @@ function App() {
                             <>
                                 <h2>{weatherData.weather[0].description}</h2>
                                 <h3>  {weatherData.name}</h3>
-                                <h1>{kelvinToCelsius(weatherData.main.temp)}</h1>
+                                <h1>{kelvinToMetric(weatherData.main.temp)}</h1>
                             </>}
 
 

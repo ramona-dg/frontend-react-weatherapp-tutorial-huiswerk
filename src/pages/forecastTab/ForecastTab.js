@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import './ForecastTab.css';
-import kelvinToCelsius from "../../helpers/kelvinToCelsius";
-import createDateString from "../../helpers/createDateString"
-
+import createDateString from "../../helpers/createDateString";
+import { TempContext } from "../../context/TempContextProvider";
 
 
 function ForecastTab({coordinates}) {
@@ -11,8 +10,8 @@ function ForecastTab({coordinates}) {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
+const { kelvinToMetric } = useContext(TempContext);
 
-    //Create date from date number(seconds count from 1970). Hier is een functie voor geschreven in helper map
 
 
     //different API used then study book
@@ -62,7 +61,7 @@ function ForecastTab({coordinates}) {
 
                         <section className="forecast-weather">
             <span>
-              {kelvinToCelsius(day.main.temp)}
+              {kelvinToMetric(day.main.temp)}
             </span>
                             <span className="weather-description">
               {day.weather[0].description}
